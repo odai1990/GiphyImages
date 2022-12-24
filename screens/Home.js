@@ -6,11 +6,13 @@ import CustomPagination from "../components/ui/CustomPagination";
 import { endPoints } from "../api/endPoints";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
+import CustomModel from "../components/ui/CustomModel";
 
 const Home = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [data, setData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const favorite = useSelector((state) => state.favoriteList.lists);
   const dispatch = useDispatch();
   const pageSize = 20;
@@ -40,8 +42,8 @@ const Home = () => {
 
   return (
     <>
+      <CustomModel isOpen={!!selectedItem} data={selectedItem}></CustomModel>
       <FlatList
-        style={{ flex: 1 }}
         data={data}
         renderItem={(itemDate) => {
           const isAdded = favorite?.findIndex(
@@ -60,7 +62,7 @@ const Home = () => {
                     : addToFavorite(itemDate.item)
                 }
                 showDetails={() => {
-                  console.log("ddddddddddddddddddddddddddddddddddddd");
+                  setSelectedItem(itemDate.item);
                 }}
                 isSelected={favorite.length ? isAdded > -1 : false}
               />
