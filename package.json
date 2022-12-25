@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.15.2",
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/bottom-tabs": "^6.5.2",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
@@ -24,6 +25,7 @@
     "react-native-dotenv": "^3.4.6",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
+    "react-native-swipe-gestures": "^1.0.5",
     "react-native-toast-message": "^2.1.5",
     "react-redux": "^8.0.5"
   },

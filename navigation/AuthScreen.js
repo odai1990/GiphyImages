@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Home from "../screens/Home";
 import Favorite from "../screens/Favorite";
 import Search from "../screens/Search";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,10 @@ const AuthScreen = () => {
         <AntDesign
           name="logout"
           style={{ fontSize: 20, paddingRight: 20 }}
-          onPress={() => dispatch(logoutAction())}
+          onPress={() => {
+            dispatch(logoutAction());
+            AsyncStorage.removeItem("Authentication");
+          }}
         />
       ),
 

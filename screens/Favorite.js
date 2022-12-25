@@ -21,13 +21,12 @@ const Favorite = () => {
 
   return (
     <>
-      {(!favorite.length && (
+      {!!!favorite.length && (
         <View style={styles.emptyContainer}>
           <Image source={FavoritesIcon} style={styles.image} />
           {/* <Text style={styles.text}>Nothing to Show</Text> */}
         </View>
-      )) ||
-        null}
+      )}
       {!!selectedItem && (
         <CustomModel
           id="modalFavorite"
@@ -56,10 +55,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: { width: "40%", height: "40%", resizeMode: "stretch" },
-  // text: {
-  //   fontSize: 18,
-  //   marginTop: 10,
-  //   fontWeight: "bold",
-  // },
 });
 export default Favorite;

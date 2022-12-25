@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import CustomButton from "../components/form/CustomButton";
 import CustomInput from "../components/form/CustomInput";
@@ -7,13 +7,26 @@ import { EMAIL, PASSWORD } from "@env";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../redux/loginReducer";
 import showToast from "../utils/notification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    getCheckAuth();
+  }, []);
+
+  const getCheckAuth = async () => {
+    const auth = await AsyncStorage.getItem("Authentication");
+    if (JSON.parse(auth)?.Authentication) dispatch(loginAction());
+  };
+
   const checkLogin = () => {
     if (EMAIL == email?.toLocaleLowerCase() && PASSWORD == password) {
+      const Authentication = JSON.stringify({ Authentication: true });
+      AsyncStorage.setItem("Authentication", Authentication);
       dispatch(loginAction());
     } else {
       showToast("error", "Error", "Incorrect Email or Password");
