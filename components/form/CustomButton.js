@@ -18,7 +18,7 @@ const CustomButton = ({ id, name, onPress, disabled, customClasses }) => {
 };
 const styles = StyleSheet.create({
   containerButton: {
-    backgroundColor: colorSystem.secondary100,
+    backgroundColor: colorSystem.secondary90,
 
     marginTop: 10,
     width: "30%",
@@ -40,7 +40,7 @@ CustomButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   name: PropTypes.string,
   disabled: PropTypes.bool,
-  secondary: PropTypes.bool,
+  secondary100: PropTypes.bool,
   customClasses: PropTypes.object,
 };
 

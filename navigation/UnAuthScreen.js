@@ -1,9 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AuthScreen from "./AuthScreen";
+// import AuthScreen from "./AuthScreen";
 import Login from "../screens/Login";
 import { useSelector } from "react-redux";
 const Stack = createNativeStackNavigator();
-
+import loadable from "@loadable/component";
+const AuthScreen = loadable(() => import("./AuthScreen"));
 const UnAuthPages = () => {
   const isAuth = useSelector((state) => state.login.isAuth);
   return (

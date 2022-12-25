@@ -7,12 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
 import CustomModel from "../components/ui/CustomModel";
 import CustomFlatList from "../components/ui/CustomFlatList";
+import CustomInput from "../components/form/CustomInput";
 
-const Home = () => {
+const Search = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [searchKey, setSearchKey] = useState("");
   const favorite = useSelector((state) => state.favoriteList.lists);
   const dispatch = useDispatch();
   const pageSize = 20;
@@ -22,9 +24,12 @@ const Home = () => {
   }, [CurrentPage]);
 
   const getImage = async () => {
+    debugger;
     const config = {
       method: "get",
-      url: `${endPoints.GifTrendingUrl}&offset=${(CurrentPage - 1) * pageSize}`,
+      url: `${endPoints.GifSearchUrl}&offset=${
+        (CurrentPage - 1) * pageSize
+      }&q=${searchKey}`,
       headers: {},
     };
     const res = await axios(config);
@@ -42,6 +47,24 @@ const Home = () => {
 
   return (
     <>
+      <View
+        style={{
+          width: "90%",
+          alignSelf: "center",
+          borderRadius: 20,
+          marginTop: 10,
+          marginBottom: 10,
+        }}
+      >
+        <CustomInput
+          id="Search"
+          icon="search"
+          placeholder="Search..."
+          value={searchKey}
+          onChangeText={setSearchKey}
+          onSubmitEvent={() => getImage()}
+        />
+      </View>
       {!!selectedItem && (
         <CustomModel
           id="modalHome"
@@ -61,17 +84,19 @@ const Home = () => {
         favorite={favorite}
         setSelectedItem={setSelectedItem}
       />
-
-      <View>
-        <CustomPagination
-          currentPage={CurrentPage}
-          totalElement={totalElements}
-          pageSize={pageSize}
-          setCurrentPage={setCurrentPage}
-        />
-      </View>
+      {(data.length && (
+        <View>
+          <CustomPagination
+            currentPage={CurrentPage}
+            totalElement={totalElements}
+            pageSize={pageSize}
+            setCurrentPage={setCurrentPage}
+          />
+        </View>
+      )) ||
+        null}
     </>
   );
 };
 
-export default Home;
+export default Search;

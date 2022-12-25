@@ -33,7 +33,7 @@ const CustomCard = ({
         </Pressable>
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{title}.</Text>
         <Text style={styles.desc}>{desc}</Text>
         <CustomToggleIconButton
           id={id}
@@ -46,8 +46,8 @@ const CustomCard = ({
 };
 const styles = StyleSheet.create({
   container: {
-    maxHeight: 250,
-    minHeight: 250,
+    maxHeight: 400,
+    minHeight: 400,
     borderRadius: 6,
     backgroundColor: colorSystem.primary100,
     alignSelf: "center",
@@ -68,17 +68,16 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 2,
-    marginTop: 6,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
-    color: colorSystem.secondary,
+    color: colorSystem.secondary100,
   },
   desc: {
-    marginBottom: 6,
-    marginTop: 6,
-    fontSize: 12,
+    // marginBottom: 6,
+    // marginTop: 6,
+    fontSize: 10,
     fontWeight: "bold",
-    color: colorSystem.secondary,
+    color: colorSystem.secondary100,
   },
 });
 

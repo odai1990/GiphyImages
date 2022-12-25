@@ -6,16 +6,10 @@ import colorSystem from "../styles/ColorSystem";
 import { logoutAction } from "../redux/loginReducer";
 import { useDispatch } from "react-redux";
 import Home from "../screens/Home";
+import Favorite from "../screens/Favorite";
+import Search from "../screens/Search";
 
 const Tab = createBottomTabNavigator();
-
-const Test = () => {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  );
-};
 
 const AuthScreen = () => {
   const dispatch = useDispatch();
@@ -53,12 +47,12 @@ const AuthScreen = () => {
       />
       <Tab.Screen
         name="Favorite"
-        component={Test}
+        component={Favorite}
         options={() => optionsTabs("favorite-border")}
       />
       <Tab.Screen
         name="Search"
-        component={Test}
+        component={Search}
         options={() => optionsTabs("search")}
       />
     </Tab.Navigator>

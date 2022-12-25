@@ -29,7 +29,7 @@ const CustomPagination = ({
 
     return (
       <Pressable onPress={() => go()}>
-        <MaterialIcons name={name} size={24} color={colorSystem.secondary} />
+        <MaterialIcons name={name} size={24} color={colorSystem.secondary100} />
       </Pressable>
     );
   };
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorSystem.primary100,
   },
   prevAndNext: {
-    color: colorSystem.secondary,
+    color: colorSystem.secondary100,
   },
   iconContainer: {
     alignSelf: "center",
@@ -179,12 +179,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   numbers: {
-    color: colorSystem.secondary,
+    color: colorSystem.secondary100,
     padding: 10,
   },
   activeNumber: {
     color: colorSystem.primary100,
-    backgroundColor: colorSystem.secondary,
+    backgroundColor: colorSystem.secondary100,
     padding: 10,
     paddingLeft: 15,
     paddingRight: 15,
