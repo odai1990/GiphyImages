@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
 import { FlatList, View } from "react-native";
 import CustomCard from "./CustomCard";
 
@@ -10,8 +11,18 @@ const CustomFlatList = ({
   setSelectedItem,
   favorite,
 }) => {
+  const flatListRef = useRef();
+
+  useEffect(() => {
+    toTop();
+  }, [data]);
+
+  const toTop = () => {
+    flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+  };
   return (
     <FlatList
+      ref={flatListRef}
       data={data}
       renderItem={(itemDate) => {
         const isAdded = favorite?.findIndex(

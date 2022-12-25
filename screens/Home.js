@@ -7,26 +7,38 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
 import CustomModel from "../components/ui/CustomModel";
 import CustomFlatList from "../components/ui/CustomFlatList";
+import CustomTabs from "../components/ui/CustomTabs";
 
 const Home = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [currentTab, setCurrentTab] = useState(0);
   const favorite = useSelector((state) => state.favoriteList.lists);
   const dispatch = useDispatch();
+
   const pageSize = 20;
 
   useEffect(() => {
     getImage();
   }, [CurrentPage]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+    getImage();
+  }, [currentTab]);
+
   const getImage = async () => {
     const config = {
       method: "get",
-      url: `${endPoints.GifTrendingUrl}&offset=${(CurrentPage - 1) * pageSize}`,
-      headers: {},
+      url: `${
+        currentTab == 0
+          ? endPoints.GifTrendingUrl
+          : endPoints.StickerTrendingUrl
+      }&offset=${(CurrentPage - 1) * pageSize}`,
     };
+
     const res = await axios(config);
     setTotalElements(res?.data?.pagination?.total_count || 0);
     setData(res?.data?.data || []);
@@ -42,6 +54,11 @@ const Home = () => {
 
   return (
     <>
+      <CustomTabs
+        tabsNames={["Gif", "Sticker"]}
+        onPress={setCurrentTab}
+        selectedTab={currentTab}
+      />
       {!!selectedItem && (
         <CustomModel
           id="modalHome"

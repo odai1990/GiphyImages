@@ -1,6 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import colorSystem from "../../styles/ColorSystem";
 import { MaterialIcons } from "@expo/vector-icons";
 const CustomInput = ({
@@ -18,7 +25,23 @@ const CustomInput = ({
     <View style={{ display: "flex", flexDirection: "column" }}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.textAndIconContainer}>
-        {icon && <MaterialIcons name={icon} size={24} style={styles.icon} />}
+        {icon && (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              Keyboard.dismiss();
+              onSubmitEvent();
+            }}
+          >
+            <MaterialIcons
+              name={icon}
+              size={24}
+              style={styles.icon}
+              onPress={() => {
+                onSubmitEvent();
+              }}
+            />
+          </TouchableWithoutFeedback>
+        )}
         <TextInput
           onSubmitEditing={onSubmitEvent}
           style={styles.inputText}
@@ -50,6 +73,7 @@ const styles = StyleSheet.create({
   },
   icon: { padding: 6 },
   inputText: {
+    width: "100%",
     padding: 10,
   },
 });

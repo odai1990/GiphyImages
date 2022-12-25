@@ -8,28 +8,34 @@ import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
 import CustomModel from "../components/ui/CustomModel";
 import CustomFlatList from "../components/ui/CustomFlatList";
 import CustomInput from "../components/form/CustomInput";
+import CustomTabs from "../components/ui/CustomTabs";
 
 const Search = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [currentTab, setCurrentTab] = useState(0);
   const [searchKey, setSearchKey] = useState("");
   const favorite = useSelector((state) => state.favoriteList.lists);
   const dispatch = useDispatch();
   const pageSize = 20;
 
   useEffect(() => {
+    setCurrentPage(1);
+    getImage();
+  }, [currentTab]);
+
+  useEffect(() => {
     getImage();
   }, [CurrentPage]);
 
   const getImage = async () => {
-    debugger;
     const config = {
       method: "get",
-      url: `${endPoints.GifSearchUrl}&offset=${
-        (CurrentPage - 1) * pageSize
-      }&q=${searchKey}`,
+      url: `${
+        currentTab == 0 ? endPoints.GifSearchUrl : endPoints.StickerSearchUrl
+      }&offset=${(CurrentPage - 1) * pageSize}&q=${searchKey}`,
       headers: {},
     };
     const res = await axios(config);
@@ -47,6 +53,11 @@ const Search = () => {
 
   return (
     <>
+      <CustomTabs
+        tabsNames={["Gif", "Sticker"]}
+        onPress={setCurrentTab}
+        selectedTab={currentTab}
+      />
       <View
         style={{
           width: "90%",

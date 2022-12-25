@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import {
   Image,
   Pressable,
@@ -32,6 +33,7 @@ const CustomCard = ({
           />
         </Pressable>
       </View>
+
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}.</Text>
         <Text style={styles.desc}>{desc}</Text>
