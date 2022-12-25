@@ -5,7 +5,7 @@ import CustomInput from "../components/form/CustomInput";
 import colorSystem from "../styles/ColorSystem";
 import { EMAIL, PASSWORD } from "@env";
 import { useDispatch } from "react-redux";
-import { loginAction } from "../redux/loginReducer";
+import { loginAction } from "../redux/LoginReducer";
 import showToast from "../utils/notification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import Logo from "../assets/images/logo.png";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import colorSystem from "../styles/ColorSystem";
-import { logoutAction } from "../redux/loginReducer";
+import { logoutAction } from "../redux/LoginReducer";
 import { useDispatch } from "react-redux";
 import Home from "../screens/Home";
 import Favorite from "../screens/Favorite";

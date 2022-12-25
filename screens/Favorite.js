@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
+import { removeFavoriteItem, setFavoriteItem } from "../redux/FavoriteReducer";
 import CustomModel from "../components/ui/CustomModel";
 import CustomFlatList from "../components/ui/CustomFlatList";
 import FavoritesIcon from "../assets/images/favorites.png";
