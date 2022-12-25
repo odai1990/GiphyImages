@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import colorSystem from "../../styles/ColorSystem";
 import CustomToggleIconButton from "../form/CustomToggleIconButton";
+import CustomSkeleton from "./CustomSkeleton";
 
 const CustomCard = ({
   id,
@@ -21,17 +22,33 @@ const CustomCard = ({
   isSelected,
   customClasses,
 }) => {
+  const [loading, setLoading] = useState(true);
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Pressable onPress={showDetails}>
           <Image
+            onLoad={() => setLoading(false)}
             source={{
               uri: url,
             }}
             style={styles.image}
           />
         </Pressable>
+
+        {loading && (
+          <View
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              height: "100%",
+              width: "100%",
+            }}
+          >
+            <CustomSkeleton />
+          </View>
+        )}
       </View>
 
       <View style={styles.textContainer}>
@@ -59,6 +76,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+    position: "relative",
   },
   image: {
     width: "100%",
@@ -75,8 +93,6 @@ const styles = StyleSheet.create({
     color: colorSystem.secondary100,
   },
   desc: {
-    // marginBottom: 6,
-    // marginTop: 6,
     fontSize: 10,
     fontWeight: "bold",
     color: colorSystem.secondary100,

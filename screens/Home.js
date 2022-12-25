@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import CustomPagination from "../components/ui/CustomPagination";
 import { endPoints } from "../api/endPoints";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { removeFavoriteItem, setFavoriteItem } from "../redux/favoriteReducer";
 import CustomModel from "../components/ui/CustomModel";
 import CustomFlatList from "../components/ui/CustomFlatList";
 import CustomTabs from "../components/ui/CustomTabs";
+import colorSystem from "../styles/ColorSystem";
 
 const Home = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
@@ -59,6 +60,14 @@ const Home = () => {
         onPress={setCurrentTab}
         selectedTab={currentTab}
       />
+      {!!!data.length && (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color={colorSystem.primary100} />
+        </View>
+      )}
+
       {!!selectedItem && (
         <CustomModel
           id="modalHome"
@@ -70,14 +79,16 @@ const Home = () => {
           favorite={favorite}
         />
       )}
-      <CustomFlatList
-        id="flatListHome"
-        data={data}
-        removeFromFavoriteItem={removeFromFavoriteItem}
-        addToFavorite={addToFavorite}
-        favorite={favorite}
-        setSelectedItem={setSelectedItem}
-      />
+      {!!data.length && (
+        <CustomFlatList
+          id="flatListHome"
+          data={data}
+          removeFromFavoriteItem={removeFromFavoriteItem}
+          addToFavorite={addToFavorite}
+          favorite={favorite}
+          setSelectedItem={setSelectedItem}
+        />
+      )}
 
       <View>
         <CustomPagination

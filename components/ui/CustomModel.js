@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { Image, Modal, ScrollView, StyleSheet, Text, View } from "react-native";
 import colorSystem from "../../styles/ColorSystem";
 import CustomToggleIconButton from "../form/CustomToggleIconButton";
 import CustomInfoRecord from "./CustomInfoRecord";
+import CustomSkeleton from "./CustomSkeleton";
 
 const CustomModel = ({
   id,
@@ -14,6 +16,7 @@ const CustomModel = ({
   addToFavorite,
 }) => {
   const isAdded = favorite?.findIndex((ele) => ele?.id == data?.id);
+  const [loading, setLoading] = useState(true);
   return (
     <Modal visible={isOpen} animationType="slide">
       <View style={styles.container}>
@@ -29,9 +32,24 @@ const CustomModel = ({
         </View>
         <ScrollView>
           <Image
+            onLoad={() => setLoading(false)}
             style={styles.image}
             source={{ uri: data?.images?.original?.url }}
           />
+
+          {loading && (
+            <View
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <CustomSkeleton />
+            </View>
+          )}
           <View style={{ marginLeft: 10 }}>
             <CustomToggleIconButton
               id={`${id}_favorite`}
@@ -70,7 +88,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   image: {
-    width: "100%",
+    resizeMode: "stretch",
     height: 400,
   },
   infoContainer: { marginTop: 20, marginBottom: 20, padding: 10 },
