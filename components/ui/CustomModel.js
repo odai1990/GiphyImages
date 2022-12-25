@@ -5,9 +5,7 @@ import colorSystem from "../../styles/ColorSystem";
 import CustomToggleIconButton from "../form/CustomToggleIconButton";
 import CustomInfoRecord from "./CustomInfoRecord";
 import CustomSkeleton from "./CustomSkeleton";
-import GestureRecognizer, {
-  swipeDirections,
-} from "react-native-swipe-gestures";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 const CustomModel = ({
   id,
@@ -20,17 +18,14 @@ const CustomModel = ({
 }) => {
   const isAdded = favorite?.findIndex((ele) => ele?.id == data?.id);
   const [loading, setLoading] = useState(true);
-  const { SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
 
   const config = {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80,
   };
+
   return (
-    <GestureRecognizer
-      // onSwipe={(direction, state) => this.onSwipe(direction, state)}
-      // onSwipeUp={(state) => setIsOpen(false)}
-      // onSwipeDown={() => setIsOpen(false)}
+    <GestureRecognizer // this is for close the model from swiping left or right only
       onSwipeLeft={() => setIsOpen(false)}
       onSwipeRight={() => setIsOpen(false)}
       config={config}
@@ -38,8 +33,10 @@ const CustomModel = ({
         flex: 1,
       }}
     >
+      {/*this is model that appear for show image details*/}
       <Modal visible={isOpen} animationType="slide">
         <View style={styles.container}>
+          {/*this is another way to close the model by icon X */}
           <View style={styles.closeButtonContainer}>
             <View style={styles.button}>
               <CustomToggleIconButton
@@ -50,13 +47,15 @@ const CustomModel = ({
               />
             </View>
           </View>
+          {/*her scroll inside the model */}
           <ScrollView>
             <Image
-              onLoad={() => setLoading(false)}
+              onLoad={() => setLoading(false)} // here toggle between skelton and image, when finish the skelton gone
               style={styles.image}
               source={{ uri: data?.images?.original?.url }}
             />
 
+            {/*this is skelton loader show when image not ready yet */}
             {loading && (
               <View
                 style={{
@@ -70,6 +69,8 @@ const CustomModel = ({
                 <CustomSkeleton />
               </View>
             )}
+
+            {/*her the add to favorite button */}
             <View style={{ marginLeft: 10 }}>
               <CustomToggleIconButton
                 id={`${id}_favorite`}
@@ -82,6 +83,8 @@ const CustomModel = ({
                 isSelected={favorite.length ? isAdded > -1 : false}
               />
             </View>
+
+            {/*her the rest of the image details */}
             <View style={styles.infoContainer}>
               <CustomInfoRecord title="Title" subTitle={data?.title} />
               <CustomInfoRecord title="Slug" subTitle={data?.slug} />

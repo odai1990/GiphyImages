@@ -8,6 +8,7 @@ const width = Dimensions.get("window").width;
 const CustomSkeleton = () => {
   const animatedValue = new Animated.Value(0);
 
+  //here i make the loop for animation and register it
   useEffect(() => {
     Animated.loop(
       Animated.timing(animatedValue, {
@@ -19,6 +20,7 @@ const CustomSkeleton = () => {
     ).start();
   });
 
+  //register the stat and endpoint
   const translateX = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [-width, width],
@@ -40,7 +42,6 @@ const CustomSkeleton = () => {
         end={{ x: 1, y: 0 }}
         style={{
           ...StyleSheet.absoluteFill,
-
           transform: [{ translateX: translateX }],
         }}
       />

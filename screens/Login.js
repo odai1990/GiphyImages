@@ -18,11 +18,13 @@ const Login = () => {
     getCheckAuth();
   }, []);
 
+  // in useEffect icall this function to see if the user are already login and to modify redux to let user come back
   const getCheckAuth = async () => {
     const auth = await AsyncStorage.getItem("Authentication");
     if (JSON.parse(auth)?.Authentication) dispatch(loginAction());
   };
 
+  // her to check the user credentials and redirect the user to home page after modify the redux and save the user login in storage
   const checkLogin = () => {
     if (EMAIL == email?.toLocaleLowerCase() && PASSWORD == password) {
       const Authentication = JSON.stringify({ Authentication: true });
@@ -74,7 +76,6 @@ const styles = StyleSheet.create({
     minHeight: "30%",
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "space-between",
     borderRadius: 8,
     padding: 30,
     backgroundColor: colorSystem.primary100,

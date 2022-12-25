@@ -14,17 +14,19 @@ const CustomFlatList = ({
   const flatListRef = useRef();
 
   useEffect(() => {
-    toTop();
+    toTop(); // this function to let the flat list scroll up to top when tab change or current page
   }, [data]);
 
   const toTop = () => {
     flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
   };
+
   return (
     <FlatList
       ref={flatListRef}
       data={data}
       renderItem={(itemDate) => {
+        // here I render and loop on data that return from api depend on pagination
         const isAdded = favorite?.findIndex(
           (ele) => ele.id == itemDate.item.id
         );
@@ -49,7 +51,7 @@ const CustomFlatList = ({
         );
       }}
       keyExtractor={(item, index) => {
-        return item.id + id + index;
+        return item.id + id + index; // her to set key for component
       }}
     />
   );

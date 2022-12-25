@@ -13,6 +13,7 @@ import colorSystem from "../styles/ColorSystem";
 import SearchIcon from "../assets/images/giphy.png";
 
 const Search = () => {
+  //here i have used deffrent state to manage locak logic like page number tab index ...etc
   const [CurrentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [data, setData] = useState([]);
@@ -24,16 +25,20 @@ const Search = () => {
   const dispatch = useDispatch();
   const pageSize = 20;
 
+  //this useEffect to recall function axios to get the next page when the page number changed
+  useEffect(() => {
+    getImage();
+  }, [CurrentPage]);
+
+  // this useEffect to recall the axios same as above useEffect but to retune the page to default ... when change tabs
   useEffect(() => {
     setCurrentPage(1);
     getImage();
   }, [currentTab]);
 
-  useEffect(() => {
-    getImage();
-  }, [CurrentPage]);
-
+  // this function for call endpoint trending
   const getImage = async () => {
+    //here i change the end point for only search between gif and Sticker depend on tabs index
     searchKey && !data.length && setLoading(true);
     const config = {
       method: "get",
@@ -48,6 +53,7 @@ const Search = () => {
     setLoading(false);
   };
 
+  // these tow function to add and delete an image from favorite list from redux
   const addToFavorite = (item) => {
     dispatch(setFavoriteItem(item));
   };
@@ -58,12 +64,14 @@ const Search = () => {
 
   return (
     <>
+      {/* here the tabs  */}
       <CustomTabs
         tabsNames={["Gif", "Sticker"]}
         onPress={setCurrentTab}
         selectedTab={currentTab}
       />
 
+      {/* this is the search box for searching on api */}
       <View
         style={{
           width: "90%",
@@ -82,6 +90,8 @@ const Search = () => {
           onSubmitEvent={() => getImage()}
         />
       </View>
+
+      {/* here the loader in fetching data from axios, in case loader false loader will fired  */}
       {Loading && (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -96,6 +106,7 @@ const Search = () => {
         </View>
       )}
 
+      {/* this is the model for details image , and this not show until you press on an image and fill state  selectedItem will show */}
       {!!selectedItem && (
         <CustomModel
           id="modalHome"
@@ -107,6 +118,8 @@ const Search = () => {
           favorite={favorite}
         />
       )}
+
+      {/* this is a flat list that return the cards after get data from api */}
       {!!data.length && (
         <CustomFlatList
           id="flatListHome"
@@ -117,6 +130,8 @@ const Search = () => {
           setSelectedItem={setSelectedItem}
         />
       )}
+
+      {/* this pagination that depend on some state and axios  */}
       {!!data.length && (
         <View>
           <CustomPagination

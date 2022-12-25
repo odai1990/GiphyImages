@@ -11,14 +11,17 @@ const CustomPagination = ({
 }) => {
   const [totalPage, setTotalPage] = useState(0);
 
+  //here i get the total element from api and divided by page size to get the number for pages and save it in total page
   useEffect(() => {
     setTotalPage(Math.ceil(totalElement / pageSize));
   }, [totalElement]);
 
+  //here to return style for the number of page that you choose or selected to make it active by make the background color white
   const styledNumber = (number) => {
     return currentPage == number ? styles.activeNumber : styles.numbers;
   };
 
+  //this function for to buttons back and next logic also render them, to see if i will go forward or backward, and check edges
   const getPrevAndNextIcon = (name, type) => {
     const go = () => {
       if (type == "next" && currentPage + 1 <= totalPage)
@@ -34,9 +37,12 @@ const CustomPagination = ({
     );
   };
 
+  // here is the logic for pagination how it works
   const getNumbers = () => {
+    // we always enter the switch
     switch (true) {
       case totalPage <= 5:
+        // here to check if the total number of pages less than 5 , then I render in throw an array , because the other condition will not work
         return Array.apply("0", Array(totalPage)).map((ele, index) => {
           return (
             <Text key={ele} style={styledNumber(index + 1)}>
@@ -45,6 +51,7 @@ const CustomPagination = ({
           );
         });
       case currentPage < 4:
+        //here when the current page less than 4 , then I will render the first 5 pages
         return (
           <>
             <Text onPress={() => setCurrentPage(1)} style={styledNumber(1)}>
@@ -65,6 +72,7 @@ const CustomPagination = ({
           </>
         );
       case currentPage > totalPage - 5:
+        //here when the current page in the middle , and not reach the final page number -5
         return (
           <>
             <Text
@@ -99,8 +107,8 @@ const CustomPagination = ({
             </Text>
           </>
         );
-
       case currentPage <= totalPage - 5 && currentPage >= 4:
+        //here the pagination reach the final pages and i need to render last 5 pages
         return (
           <>
             <Text

@@ -9,10 +9,11 @@ import Home from "../screens/Home";
 import Favorite from "../screens/Favorite";
 import Search from "../screens/Search";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const Tab = createBottomTabNavigator();
 
 const AuthScreen = () => {
+  //Here make some global option to all auth navigation like styles,icon and also logout function.
+  //her i sue different navigation called tabs
   const dispatch = useDispatch();
   const optionsTabs = (iconName) => {
     return {
@@ -24,16 +25,15 @@ const AuthScreen = () => {
           name="logout"
           style={{ fontSize: 20, paddingRight: 20 }}
           onPress={() => {
+            // her i call logout from app and delete storage
             dispatch(logoutAction());
             AsyncStorage.removeItem("Authentication");
           }}
         />
       ),
-
       tabBarIcon: ({ color, size }) => (
         <MaterialIcons name={iconName} color={color} size={size} />
       ),
-
       tabBarLabel: "",
     };
   };

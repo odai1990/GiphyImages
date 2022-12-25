@@ -26,9 +26,10 @@ const CustomCard = ({
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
+        {/* here to show image */}
         <Pressable onPress={showDetails}>
           <Image
-            onLoad={() => setLoading(false)}
+            onLoad={() => setLoading(false)} // here I toggle show skeleton
             source={{
               uri: url,
             }}
@@ -36,6 +37,7 @@ const CustomCard = ({
           />
         </Pressable>
 
+        {/* here to show skeleton (loader) in case the image not ready yet */}
         {loading && (
           <View
             style={{
@@ -51,6 +53,7 @@ const CustomCard = ({
         )}
       </View>
 
+      {/* the rest of information for the card */}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}.</Text>
         <Text style={styles.desc}>{desc}</Text>

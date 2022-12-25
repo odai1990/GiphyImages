@@ -25,6 +25,7 @@ const CustomInput = ({
     <View style={{ display: "flex", flexDirection: "column" }}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.textAndIconContainer}>
+        {/*here to check if the inout has icon or not and make it clickable*/}
         {icon && (
           <TouchableWithoutFeedback
             onPress={() => {
@@ -42,6 +43,7 @@ const CustomInput = ({
             />
           </TouchableWithoutFeedback>
         )}
+
         <TextInput
           onSubmitEditing={onSubmitEvent}
           style={styles.inputText}

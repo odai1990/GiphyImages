@@ -11,6 +11,7 @@ const Favorite = () => {
   const favorite = useSelector((state) => state.favoriteList.lists);
   const dispatch = useDispatch();
 
+  //these two function to toggle favorite list
   const addToFavorite = (item) => {
     dispatch(setFavoriteItem(item));
   };
@@ -21,12 +22,14 @@ const Favorite = () => {
 
   return (
     <>
+      {/* image show in case the favorite list is empty  */}
       {!!!favorite.length && (
         <View style={styles.emptyContainer}>
           <Image source={FavoritesIcon} style={styles.image} />
-          {/* <Text style={styles.text}>Nothing to Show</Text> */}
         </View>
       )}
+
+      {/* this to show the details for image that you pressed on */}
       {!!selectedItem && (
         <CustomModel
           id="modalFavorite"
@@ -37,6 +40,8 @@ const Favorite = () => {
           favorite={favorite}
         />
       )}
+
+      {/* her to show all images list in redux favorite list*/}
       <CustomFlatList
         id="flatListFavorite"
         data={favorite}
